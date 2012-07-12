@@ -1,6 +1,6 @@
 // Copyright 2012 Google, Inc.  All rights reserved.
 
-package com.google.perftools.jtune.tools.jta;
+package org.arbeitspferde.friesian;
 
 import com.google.inject.assistedinject.Assisted;
 

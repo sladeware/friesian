@@ -1,6 +1,6 @@
 // Copyright 2011 Google Inc. All Rights Reserved.
 
-package com.google.perftools.jtune.tools.jta;
+package org.arbeitspferde.friesian;
 
 import java.util.ArrayList;
 import java.util.Collections;

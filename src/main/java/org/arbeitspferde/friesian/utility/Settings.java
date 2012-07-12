@@ -1,6 +1,6 @@
 // Copyright 2012 Google, Inc.  All rights reserved.
 
-package com.google.perftools.jtune.tools.jta.utility;
+package org.arbeitspferde.friesian.utility;
 
 /**
  * A read-only configuration singleton for the test application.

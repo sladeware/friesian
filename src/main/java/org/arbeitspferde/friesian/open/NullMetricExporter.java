@@ -1,10 +1,10 @@
 // Copyright 2012 Google, Inc.  All rights reserved.
 
-package com.google.perftools.jtune.tools.jta.open;
+package org.arbeitspferde.friesian.open;
 
 import com.google.inject.Singleton;
-import com.google.perftools.jtune.tools.jta.utility.MetricExporter;
-import com.google.perftools.jtune.tools.jta.utility.MetricListener;
+import org.arbeitspferde.friesian.utility.MetricExporter;
+import org.arbeitspferde.friesian.utility.MetricListener;
 
 /**
  * A dummy implementation of {@link MetricExporter} that does nothing.

@@ -1,13 +1,13 @@
 // Copyright 2012 Google, Inc.  All rights reserved.
 
-package com.google.perftools.jtune.tools.jta.open;
+package org.arbeitspferde.friesian.open;
 
 import com.google.inject.AbstractModule;
-import com.google.perftools.jtune.tools.jta.utility.MetricExporter;
-import com.google.perftools.jtune.tools.jta.utility.SupplementalSettingsProcessor;
+import org.arbeitspferde.friesian.utility.MetricExporter;
+import org.arbeitspferde.friesian.utility.SupplementalSettingsProcessor;
 
 /**
- * The Guice module for the open source implementation components of the JTune Test Application.
+ * The Guice module for the open source implementation components of the Friesian workhorse.
  */
 public class OpenModule extends AbstractModule {
   @Override

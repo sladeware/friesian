@@ -1,16 +1,6 @@
 // Copyright 2011 Google Inc. All Rights Reserved.
 
-package com.google.perftools.jtune.tools.jta;
-
-import com.google.common.base.Stopwatch;
-import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Singleton;
-import com.google.perftools.jtune.tools.jta.open.OpenModule;
-import com.google.perftools.jtune.tools.jta.utility.Metric;
-import com.google.perftools.jtune.tools.jta.utility.MetricExporter;
-import com.google.perftools.jtune.tools.jta.utility.Settings;
+package org.arbeitspferde.friesian;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -20,20 +10,29 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.arbeitspferde.friesian.open.OpenModule;
+import org.arbeitspferde.friesian.utility.Metric;
+import org.arbeitspferde.friesian.utility.MetricExporter;
+import org.arbeitspferde.friesian.utility.Settings;
+
+import com.google.common.base.Stopwatch;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Singleton;
+
 /**
- * The purpose of the JTune Test Application (JTA) is to provide a simple Java application that is
+ * The purpose of the Friesian workhorse is to provide a simple Java application that is
  * configurable to simulate JVM memory behavior so that it can be used to verify and validate core
- * JTune features such as the Hypothesizer's generational genetic algorithm. It starts up quickly
- * and can simulate the diurnal qps load that a real user-facing Google application experiences.
- * Its multithreaded and 100% pure Java.
+ * Konik features such as the Hypothesizer's generational genetic algorithm. It starts up quickly
+ * and can simulate the diurnal QPS load that a real user-facing application experiences.
  *
- * Please see the design document:
- *  http://go/jtune-test-application
+ * It's multithreaded and 100 percent pure Java with no JNI or native code.
  */
 @Singleton
-public class JTuneTestApplication {
+public class FriesianMain {
   /** Logger for this class */
-  private static final Logger log = Logger.getLogger(JTuneTestApplication.class.getCanonicalName());
+  private static final Logger log = Logger.getLogger(FriesianMain.class.getCanonicalName());
 
   private AtomicLong jtaTotalNumberOfWorkItems = new AtomicLong();
   private final AtomicLong jtaMasterSleepTime = new AtomicLong();
@@ -46,15 +45,14 @@ public class JTuneTestApplication {
   private final Settings settings;
 
   @Inject
-  public JTuneTestApplication(Stopwatch timer, MetricExporter metricExporter,
-      ListWorkEngineFactory listWorkEngineFactory, Settings settings) {
+  public FriesianMain(final Stopwatch timer, final MetricExporter metricExporter,
+      final ListWorkEngineFactory listWorkEngineFactory, final Settings settings) {
     this.timer = timer;
     this.metricExporter = metricExporter;
     this.listWorkEngineFactory = listWorkEngineFactory;
     this.settings = settings;
   }
 
-  /** Run the JTune Test Application */
   public void run() {
 
     timer.start();
@@ -95,39 +93,39 @@ public class JTuneTestApplication {
               settings.getHotProbability(), settings.getColdProbability());
           workService.execute(worker);
           jtaTotalNumberOfWorkItems.incrementAndGet();
-        } catch (RejectedExecutionException e) {
+        } catch (final RejectedExecutionException e) {
           log.log(Level.WARNING, "Unable to execute thread", e);
         }
         jtaMasterSleepTime.set(howManyMillisToSleep());
         Thread.sleep(jtaMasterSleepTime.get());
       }
-    } catch (InterruptedException e) {
+    } catch (final InterruptedException e) {
       log.log(Level.WARNING, "Master is unable to sleep", e);
     }
   }
 
   /** Returns the varying number of milliseconds to sleep based on the diurnal curve function */
   private long howManyMillisToSleep() {
-    return (long) (1000.0 / (settings.getRateSlopeConstant() * diurnalCurve(this.timer)
+    return (long) (1000.0 / ((settings.getRateSlopeConstant() * diurnalCurve(this.timer))
         + settings.getRateInterceptConstant()));
   }
 
   /**
    * Simluates a diurnal curve. Returns a number of milliseconds. d = -cos(msec_since_epoch) + 1.5
    */
-  private double diurnalCurve(Stopwatch timer) {
-    return -1.0 * Math.cos((timer.elapsedMillis()
+  private double diurnalCurve(final Stopwatch timer) {
+    return (-1.0 * Math.cos((timer.elapsedMillis()
         / (settings.getDiurnalPeriod() * 60.0 * 60.0 * 1000.0))
-        * Math.PI * 2.0) + 1.5;
+        * Math.PI * 2.0)) + 1.5;
   }
 
   /** Program entry point */
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     try {
-      final Injector injector = Guice.createInjector(new JtaModule(args), new OpenModule());
+      final Injector injector = Guice.createInjector(new FriesianModule(args), new OpenModule());
 
-      JTuneTestApplication jtuneTestApplication = injector.getInstance(JTuneTestApplication.class);
-      jtuneTestApplication.run();
+      final FriesianMain friesianWorkhorse = injector.getInstance(FriesianMain.class);
+      friesianWorkhorse.run();
     } catch (final Exception e) {
       log.log(Level.SEVERE, "Uncaught exception; aborting.", e);
       System.exit(1);

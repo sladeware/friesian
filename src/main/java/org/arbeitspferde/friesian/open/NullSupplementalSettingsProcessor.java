@@ -1,9 +1,9 @@
 // Copyright 2012 Google, Inc.  All rights reserved.
 
-package com.google.perftools.jtune.tools.jta.open;
+package org.arbeitspferde.friesian.open;
 
 import com.google.inject.Singleton;
-import com.google.perftools.jtune.tools.jta.utility.SupplementalSettingsProcessor;
+import org.arbeitspferde.friesian.utility.SupplementalSettingsProcessor;
 
 /**
  * Don't do anything with any supplemental flags.
