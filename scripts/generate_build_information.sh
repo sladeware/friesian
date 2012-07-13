@@ -7,7 +7,8 @@ readonly BUILD_USER=$(whoami)
 readonly BUILD_TIMESTAMP=$(date -u)
 readonly BUILD_BRANCH=$(git branch | awk '{ print $2 }')
 readonly BUILD_COMMIT=$(git log | head -n1 | awk '{ print $2 }')
+readonly BUILD_UNAME=$(uname -a)
 
-sed "s,@@BUILD_USER@@,${BUILD_USER},;s,@@BUILD_TIMESTAMP@@,${BUILD_TIMESTAMP},;s,@@BUILD_BRANCH@@,${BUILD_BRANCH},;s,@@BUILD_COMMIT@@,${BUILD_COMMIT}," \
+sed "s,@@BUILD_USER@@,${BUILD_USER},;s,@@BUILD_TIMESTAMP@@,${BUILD_TIMESTAMP},;s,@@BUILD_BRANCH@@,${BUILD_BRANCH},;s,@@BUILD_COMMIT@@,${BUILD_COMMIT},;s,@@BUILD_UNAME@@,${BUILD_UNAME}," \
   "${INPUT}" \
   > "${OUTPUT}"

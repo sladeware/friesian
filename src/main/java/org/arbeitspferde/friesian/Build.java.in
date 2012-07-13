@@ -12,6 +12,7 @@ public class Build {
   private static final String BUILD_BRANCH = "@@BUILD_BRANCH@@";
   private static final String BUILD_COMMIT = "@@BUILD_COMMIT@@";
   private static final String BUILD_USER = "@@BUILD_USER@@";
+  private static final String BUILD_UNAME = "@@BUILD_UNAME@@";
   
   public String getTimestamp() {
     return BUILD_TIMESTAMP;
@@ -29,6 +30,10 @@ public class Build {
     return BUILD_USER;
   }
 
+  public String getUname() {
+    return BUILD_UNAME;
+  }
+
   public String getStamp() {
     return new StringBuilder()
         .append("Friesian built on ")
@@ -39,6 +44,8 @@ public class Build {
         .append(BUILD_BRANCH)
         .append(" at commit ")
         .append(BUILD_COMMIT)
+        .append(" on a machine with identity ")
+        .append(BUILD_UNAME)
         .append(".")
         .toString();
   }
