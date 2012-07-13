@@ -74,6 +74,36 @@
             </archive>
           </configuration>
         </plugin>
+        <plugin>
+          <artifactId>exec-maven-plugin</artifactId>
+          <groupId>org.codehaus.mojo</groupId>
+          <executions>
+            <execution>
+              <id>Generate Build Stamp</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>exec</goal>
+              </goals>
+              <configuration>
+                <executable>${basedir}/scripts/generate_build_information.sh</executable>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>2.5</version>
+          <configuration>
+            <filesets>
+              <fileset>
+                <directory>src/main/java/org/arbeitspferde/friesian</directory>
+                <includes>
+                  <include>Build.java</include>
+                </includes>
+              </fileset>
+            </filesets>
+          </configuration>
+        </plugin>
       </plugins>  
   </build>
 </project>
