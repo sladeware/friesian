@@ -4,3 +4,23 @@ $ mvn assembly:single
 
 = RUNNING
 $ java -jar target/subject-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+= USING ECLIPSE
+Be sure to export »M2_REPO« to »${HOME}/.m2/repository« before invoking
+Eclipse.  This is due to the nature in which Maven exports the project object
+model to Eclipse's native format.
+
+$ M2_REPO="${HOME}/.m2/repository" eclipse
+
+The Eclipse definition can be regenerated as such:
+
+$ mvn eclipse:eclipse
+
+= MAVEN SUNDRIES
+$ mvn --version
+Apache Maven 2.2.1 (rdebian-1)
+Java version: 1.6.0_20
+Java home: /usr/lib/jvm/java-6-openjdk/jre
+Default locale: de_DE, platform encoding: UTF-8
+OS name: "linux" version: "2.6.32-41-generic" arch: "amd64" Family: "unix"
+
