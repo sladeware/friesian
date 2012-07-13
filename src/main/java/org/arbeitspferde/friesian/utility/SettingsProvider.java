@@ -1,4 +1,17 @@
-// Copyright 2012 Google, Inc.  All rights reserved.
+/* Copyright 2012 Google, Inc.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
 
 package org.arbeitspferde.friesian.utility;
 
@@ -27,6 +40,8 @@ import java.util.Set;
  */
 @Singleton
 public class SettingsProvider implements Provider<Settings> {
+  private static final String PROXIED_FLAGS_PACKAGE_WHITELIST_PREFIX = "org.arbeitspferde";
+
   @Option(
       name = "--rateSlopeConstant",
       aliases = {"--rsc"},
@@ -125,8 +140,9 @@ public class SettingsProvider implements Provider<Settings> {
   @Override
   public Settings get() {
     final Reflections reflections = new Reflections(new ConfigurationBuilder()
-        .filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix("com.google")))
-        .setUrls(ClasspathHelper.forPackage("com.google"))
+        .filterInputsBy(new FilterBuilder()
+            .include(FilterBuilder.prefix(PROXIED_FLAGS_PACKAGE_WHITELIST_PREFIX)))
+        .setUrls(ClasspathHelper.forPackage(PROXIED_FLAGS_PACKAGE_WHITELIST_PREFIX))
         .setScanners(new FieldAnnotationsScanner()));
 
     final Set<String> args4jWhitelist = new HashSet<String>();
