@@ -40,6 +40,8 @@ import java.util.Set;
  */
 @Singleton
 public class SettingsProvider implements Provider<Settings> {
+  private static final String PROXIED_FLAGS_PACKAGE_WHITELIST_PREFIX = "org.arbeitspferde";
+
   @Option(
       name = "--rateSlopeConstant",
       aliases = {"--rsc"},
@@ -138,8 +140,9 @@ public class SettingsProvider implements Provider<Settings> {
   @Override
   public Settings get() {
     final Reflections reflections = new Reflections(new ConfigurationBuilder()
-        .filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix("com.google")))
-        .setUrls(ClasspathHelper.forPackage("com.google"))
+        .filterInputsBy(new FilterBuilder()
+            .include(FilterBuilder.prefix(PROXIED_FLAGS_PACKAGE_WHITELIST_PREFIX)))
+        .setUrls(ClasspathHelper.forPackage(PROXIED_FLAGS_PACKAGE_WHITELIST_PREFIX))
         .setScanners(new FieldAnnotationsScanner()));
 
     final Set<String> args4jWhitelist = new HashSet<String>();
