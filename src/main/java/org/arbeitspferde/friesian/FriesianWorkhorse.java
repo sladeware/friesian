@@ -56,17 +56,21 @@ public class FriesianWorkhorse {
   private final MetricExporter metricExporter;
   private final ListWorkEngineFactory listWorkEngineFactory;
   private final Settings settings;
+  private final Build build;
 
   @Inject
   public FriesianWorkhorse(final Stopwatch timer, final MetricExporter metricExporter,
-      final ListWorkEngineFactory listWorkEngineFactory, final Settings settings) {
+      final ListWorkEngineFactory listWorkEngineFactory, final Settings settings,
+      final Build build) {
     this.timer = timer;
     this.metricExporter = metricExporter;
     this.listWorkEngineFactory = listWorkEngineFactory;
     this.settings = settings;
+    this.build = build;
   }
 
   public void run() {
+    log.info(build.getStamp());
 
     timer.start();
 
