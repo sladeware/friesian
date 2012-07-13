@@ -52,15 +52,15 @@
     </dependency>
   </dependencies>
 
-  <build>  
-      <plugins>  
-        <plugin>  
-          <artifactId>maven-compiler-plugin</artifactId>  
-          <configuration>  
-            <source>1.5</source>  
-            <target>1.5</target>  
-          </configuration>  
-        </plugin>  
+  <build>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>1.5</source>
+            <target>1.5</target>
+          </configuration>
+        </plugin>
         <plugin>
           <artifactId>maven-assembly-plugin</artifactId>
           <configuration>
@@ -69,11 +69,11 @@
             </descriptorRefs>
             <archive>
               <manifest>
-                <mainClass>org.arbeitspferde.friesian.FriesianMain</mainClass>
+                <mainClass>org.arbeitspferde.friesian.OpenMain</mainClass>
               </manifest>
             </archive>
           </configuration>
         </plugin>
-      </plugins>  
+      </plugins>
   </build>
 </project>

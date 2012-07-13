@@ -13,22 +13,19 @@
    limitations under the License.
  */
 
-package org.arbeitspferde.friesian.utility;
+package org.arbeitspferde.friesian;
+
+
+import com.google.inject.Guice;
+import com.google.inject.Module;
 
 /**
- * {@link MetricExporter} is a means of exposing metrics of a given name to a time series processor
- * or experimental test harness.  The default implementation {@link NullMetricExporter} simply does
- * nothing.
+ * {@link WorkhorseFactory} is designed to furnish {@link FriesianWorkhorse} instances based off
+ * the provided Guice {@link Module}.  {@link OpenMain} provides a canonical example of how easy
+ * it would be for another user of Friesian to extend the test bed for new purposes.
  */
-public interface MetricExporter {
-  /**
-   * Register a metric with the exporter.  The exporter is expected to maintain a reference to
-   * the listener.
-   */
-  public void register(final String name, final String description, final MetricListener<?> metric);
-
-  /**
-   * Ready the exporter for use.
-   */
-  public void init();
+public class WorkhorseFactory {
+  public FriesianWorkhorse workhorseFor(final Module... modules) {
+    return Guice.createInjector(modules).getInstance(FriesianWorkhorse.class);
+  }
 }
