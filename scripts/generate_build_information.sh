@@ -5,7 +5,7 @@ readonly INPUT="${OUTPUT}.in"
 
 readonly BUILD_USER=$(whoami)
 readonly BUILD_TIMESTAMP=$(date -u)
-readonly BUILD_BRANCH=$(a=$(git symbolic-ref HEAD 2> /dev/null || echo "<UNKNOWN>") ; echo ${#refs/heads/})
+readonly BUILD_BRANCH=$(a=$(git symbolic-ref HEAD 2> /dev/null || echo "<UNKNOWN>") ; echo ${a#refs/heads/})
 readonly BUILD_COMMIT=$(git log | head -n1 | awk '{ print $2 }')
 readonly BUILD_UNAME=$(uname -a)
 
