@@ -69,7 +69,7 @@
             </descriptorRefs>
             <archive>
               <manifest>
-                <mainClass>org.arbeitspferde.friesian.FriesianMain</mainClass>
+                <mainClass>org.arbeitspferde.friesian.OpenMain</mainClass>
               </manifest>
             </archive>
           </configuration>
