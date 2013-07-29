@@ -1,9 +1,23 @@
 = BUILDING
+$ mvn package
+
+= PACKAGING
 $ mvn assembly:assembly
 $ mvn assembly:single
 
 = RUNNING
 $ java -jar target/subject-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+= RELEASE ENGINEERING
+This section assumes proper configuration and authorization to the Sonatype Maven repository.
+
+== SNAPSHOT
+$ mvn clean deploy -DperformRelease=true
+
+== RELEASE
+$ mvn release:clean -DperformRelease=true
+$ mvn release:prepare -DperformRelease=true
+$ mvn release:perform -DperformRelease=true
 
 = USING ECLIPSE
 Be sure to export »M2_REPO« to »${HOME}/.m2/repository« before invoking
