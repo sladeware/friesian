@@ -5,7 +5,7 @@ $ mvn package
 $ mvn assembly:assembly
 
 = RUNNING
-$ java -jar target/subject-1.0-SNAPSHOT-jar-with-dependencies.jar
+$ java -jar target/friesian-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 = RELEASE ENGINEERING
 This section assumes proper configuration and authorization to the Sonatype Maven repository.
