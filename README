@@ -3,7 +3,6 @@ $ mvn package
 
 = PACKAGING
 $ mvn assembly:assembly
-$ mvn assembly:single
 
 = RUNNING
 $ java -jar target/subject-1.0-SNAPSHOT-jar-with-dependencies.jar
