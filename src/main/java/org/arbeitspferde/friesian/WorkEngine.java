@@ -19,6 +19,7 @@ import com.google.common.base.Stopwatch;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,7 +57,7 @@ abstract class WorkEngine implements Runnable {
       final Stopwatch timer = new Stopwatch().start();
       doWork();
       timer.stop();
-      jtaWorkerWorkTime.addAndGet(timer.elapsedMillis());
+      jtaWorkerWorkTime.addAndGet(timer.elapsed(TimeUnit.MILLISECONDS));
       if (sleepProbability >= RandomNumber.generatePercentage(rng)) {
         try {
           Thread.sleep(workerSleepTime);
