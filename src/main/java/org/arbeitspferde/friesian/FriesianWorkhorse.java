@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -131,8 +132,9 @@ public class FriesianWorkhorse {
    * -cos(msec_since_epoch) + 1.5
    */
   private double diurnalCurve(final Stopwatch timer) {
-    return (-1.0 * Math
-        .cos((timer.elapsedMillis() / (settings.getDiurnalPeriod() * 60.0 * 60.0 * 1000.0))
-            * Math.PI * 2.0)) + 1.5;
+    return (
+        -1.0 * Math.cos(
+            (timer.elapsed(TimeUnit.MILLISECONDS) / (settings.getDiurnalPeriod()
+            * 60.0 * 60.0 * 1000.0)) * Math.PI * 2.0)) + 1.5;
   }
 }
